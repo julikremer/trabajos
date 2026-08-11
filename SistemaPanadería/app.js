@@ -1,0 +1,195 @@
+let panes = [];
+let clientes = [];
+let ventas = [];
+
+let contadorPan = 1;
+let contadorCliente = 1;
+let contadorDetalle = 1;
+let contadorVenta = 1;
+
+const inputPanNombre = document.querySelector("#pan-nombre");
+const inputPanPrecio = document.querySelector("#pan-precio");
+const btnAgregarPan = document.querySelector("#btn-agregar-pan");
+const listaPanes = document.querySelector("#lista-panes");
+
+const inputClienteNombre = document.querySelector("#cliente-nombre");
+const btnAgregarCliente = document.querySelector("#btn-agregar-cliente");
+const listaClientes = document.querySelector("#lista-clientes");
+
+const selectVentaCliente = document.querySelector("#venta-cliente");
+const selectVentaPan = document.querySelector("#venta-pan");
+const inputVentaCantidad = document.querySelector("#venta-cantidad");
+const btnAgregarVenta = document.querySelector("#btn-agregar-venta");
+const listaVentas = document.querySelector("#lista-ventas");
+
+
+function renderPanes() {
+  listaPanes.innerHTML = "";
+  panes.forEach(pan => {
+    const li = document.createElement("li");
+
+    const texto = document.createElement("span");
+    texto.textContent = `${pan.nombre} — $${pan.precio}`;
+
+    const boton = document.createElement("button");
+    boton.textContent = "Eliminar";
+    boton.classList.add("btn-eliminar");
+    boton.addEventListener("click", () => {
+      if (confirm("¿Eliminar este pan?")) {
+        panes = panes.filter(p => p.id !== pan.id);
+        actualizarTodo();
+      }
+    });
+
+    li.appendChild(texto);
+    li.appendChild(boton);
+    listaPanes.appendChild(li);
+  });
+}
+
+function renderClientes() {
+  listaClientes.innerHTML = "";
+  clientes.forEach(cliente => {
+    const li = document.createElement("li");
+
+    const texto = document.createElement("span");
+    texto.textContent = cliente.nombre;
+
+    const boton = document.createElement("button");
+    boton.textContent = "Eliminar";
+    boton.classList.add("btn-eliminar");
+    boton.addEventListener("click", () => {
+      if (confirm("¿Eliminar este cliente?")) {
+        clientes = clientes.filter(c => c.id !== cliente.id);
+        actualizarTodo();
+      }
+    });
+
+    li.appendChild(texto);
+    li.appendChild(boton);
+    listaClientes.appendChild(li);
+  });
+}
+
+function renderVentas() {
+  listaVentas.innerHTML = "";
+  ventas.forEach(venta => {
+    const li = document.createElement("li");
+
+    const texto = document.createElement("span");
+    texto.textContent =
+      `${venta.cliente.nombre} compró ${venta.detalle.cantidad} ${venta.detalle.pan.nombre} — Total: $${venta.total}`;
+
+    const boton = document.createElement("button");
+    boton.textContent = "Eliminar";
+    boton.classList.add("btn-eliminar");
+    boton.addEventListener("click", () => {
+      if (confirm("¿Eliminar esta venta?")) {
+        ventas = ventas.filter(v => v.id !== venta.id);
+        actualizarTodo();
+      }
+    });
+
+    li.appendChild(texto);
+    li.appendChild(boton);
+    listaVentas.appendChild(li);
+  });
+}
+
+function renderSelects() {
+  selectVentaCliente.innerHTML = "";
+  const opcionCliente = document.createElement("option");
+  opcionCliente.value = "";
+  opcionCliente.textContent = "Seleccioná un cliente";
+  selectVentaCliente.appendChild(opcionCliente);
+
+  clientes.forEach(cliente => {
+    const opcion = document.createElement("option");
+    opcion.value = cliente.id;
+    opcion.textContent = cliente.nombre;
+    selectVentaCliente.appendChild(opcion);
+  });
+
+  selectVentaPan.innerHTML = "";
+  const opcionPan = document.createElement("option");
+  opcionPan.value = "";
+  opcionPan.textContent = "Seleccioná un pan";
+  selectVentaPan.appendChild(opcionPan);
+
+  panes.forEach(pan => {
+    const opcion = document.createElement("option");
+    opcion.value = pan.id;
+    opcion.textContent = `${pan.nombre} — $${pan.precio}`;
+    selectVentaPan.appendChild(opcion);
+  });
+}
+
+function actualizarTodo() {
+  renderPanes();
+  renderClientes();
+  renderVentas();
+  renderSelects();
+}
+
+btnAgregarPan.addEventListener("click", () => {
+  const nombre = inputPanNombre.value;
+  const precio = inputPanPrecio.value;
+
+  if (nombre === "" || precio === "") {
+    alert("Completá el nombre y el precio del pan");
+    return;
+  }
+
+  panes.push(new Pan(contadorPan, nombre, precio));
+  contadorPan++;
+
+  inputPanNombre.value = "";
+  inputPanPrecio.value = "";
+
+  actualizarTodo();
+  alert("Pan agregado ?");
+});
+
+btnAgregarCliente.addEventListener("click", () => {
+  const nombre = inputClienteNombre.value;
+
+  if (nombre === "") {
+    alert("Completá el nombre del cliente");
+    return;
+  }
+
+  clientes.push(new Cliente(contadorCliente, nombre));
+  contadorCliente++;
+
+  inputClienteNombre.value = "";
+
+  actualizarTodo();
+  alert("Cliente agregado ?");
+});
+
+btnAgregarVenta.addEventListener("click", () => {
+  const clienteId = selectVentaCliente.value;
+  const panId = selectVentaPan.value;
+  const cantidad = inputVentaCantidad.value;
+
+  if (clienteId === "" || panId === "") {
+    alert("Elegí un cliente y un pan");
+    return;
+  }
+
+  const cliente = clientes.filter(c => c.id == clienteId)[0];
+  const pan = panes.filter(p => p.id == panId)[0];
+
+  const detalle = new DetalleVenta(contadorDetalle, pan, cantidad);
+  contadorDetalle++;
+
+  ventas.push(new Venta(contadorVenta, cliente, detalle));
+  contadorVenta++;
+
+  inputVentaCantidad.value = "1";
+
+  actualizarTodo();
+  alert("Venta registrada ?");
+});
+
+actualizarTodo();
