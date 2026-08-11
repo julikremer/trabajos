@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sistema de Panaderia</title>
+  <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+
+  <header>
+    <h1>?? Sistema de Panaderia</h1>
+  </header>
+
+  <main>
+
+    <section class="panel">
+      <h2>Panes</h2>
+      <div class="formulario">
+        <input type="text" id="pan-nombre" placeholder="Nombre del pan">
+        <input type="number" id="pan-precio" placeholder="Precio">
+        <button type="button" id="btn-agregar-pan">Agregar pan</button>
+      </div>
+      <ul id="lista-panes"></ul>
+    </section>
+
+    <section class="panel">
+      <h2>Clientes</h2>
+      <div class="formulario">
+        <input type="text" id="cliente-nombre" placeholder="Nombre del cliente">
+        <button type="button" id="btn-agregar-cliente">Agregar cliente</button>
+      </div>
+      <ul id="lista-clientes"></ul>
+    </section>
+
+    <section class="panel">
+      <h2>Ventas</h2>
+      <div class="formulario">
+        <select id="venta-cliente">
+          <option value="">Seleccion� un cliente</option>
+        </select>
+        <select id="venta-pan">
+          <option value="">Seleccion� un pan</option>
+        </select>
+        <input type="number" id="venta-cantidad" placeholder="Cantidad" value="1">
+        <button type="button" id="btn-agregar-venta">Registrar venta</button>
+      </div>
+      <ul id="lista-ventas"></ul>
+    </section>
+
+  </main>
+
+  <script src="clases.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sistema de Panader�a</title>
+  <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+
+  <header>
+    <h1>?? Sistema de Panader�a</h1>
+  </header>
+
+  <main>
+
+
+    <section class="panel">
+      <h2>Panes</h2>
+      <div class="formulario">
+        <input type="text" id="pan-nombre" placeholder="Nombre del pan">
+        <input type="number" id="pan-precio" placeholder="Precio">
+        <button type="button" id="btn-agregar-pan">Agregar pan</button>
+      </div>
+      <ul id="lista-panes"></ul>
+    </section>
+
+
+    <section class="panel">
+      <h2>Clientes</h2>
+      <div class="formulario">
+        <input type="text" id="cliente-nombre" placeholder="Nombre del cliente">
+        <button type="button" id="btn-agregar-cliente">Agregar cliente</button>
+      </div>
+      <ul id="lista-clientes"></ul>
+    </section>
+
+
+    <section class="panel">
+      <h2>Ventas</h2>
+      <div class="formulario">
+        <select id="venta-cliente">
+          <option value="">Seleccion� un cliente</option>
+        </select>
+        <select id="venta-pan">
+          <option value="">Seleccion� un pan</option>
+        </select>
+        <input type="number" id="venta-cantidad" placeholder="Cantidad" value="1">
+        <button type="button" id="btn-agregar-venta">Registrar venta</button>
+      </div>
+      <ul id="lista-ventas"></ul>
+    </section>
+
+  </main>
+
+  <script src="clases.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
